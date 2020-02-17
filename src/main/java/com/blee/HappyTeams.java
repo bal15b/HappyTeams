@@ -17,25 +17,38 @@ import java.io.*;
 public class HappyTeams 
 {
 
-  public class User
+  public static class User
   {
-    public int pref[];
-    public String name;
+    public static int pref[];
+    public static int id;
+    public static String name;
 
-    public void main()
+    User(String n, int[] p, int c, int h)
     {
+      name = n;
+      id = h;
       pref = new int[10000];
+
+      for(int i = 1; i <= c; i++)
+      {
+        pref[i] = p[i];
+      }
+
     }
   }
 
   public static User l[];
   public static int count;
 
-  public static User processLine(String x, User y)
+  public static User processLine(String x, int h)
     {
       int length = x.length();
 
       String[] temp = x.split(",");
+
+      int[] choices = new int[10000];
+
+      String n = temp[0];
 
       System.out.println(temp[0]);
 
@@ -43,18 +56,17 @@ public class HappyTeams
 
       for (String t : temp)
       {
-        System.out.println(t);
 
-        if(count == 0)
-        {
-          //y.name = t;
-        }
+        if(count == 0){}
         else
         {
-          //y.pref[count] = Integer.parseInt(t);
+          choices[count] = Integer.parseInt(t);
         }
         count ++;
       }
+      System.out.println(h);
+
+      User y = new User(n,choices,count,h);
 
       return y;
     }
@@ -74,17 +86,20 @@ public class HappyTeams
 
       FileInputStream fis = new FileInputStream("/"+ currentDirectory + "/src/" + f);
       Scanner scanner = new Scanner(fis);
+
       l = new User[10000];
+
+
 
       if (scanner.hasNextLine())
       {
-        l[count] = processLine(scanner.nextLine(),l[0]);
+        l[count] = processLine(scanner.nextLine(), count);
         count ++;
       }
    
       while(scanner.hasNextLine())
       {
-        l[count] = processLine(scanner.nextLine(),l[count]);
+        l[count] = processLine(scanner.nextLine(), count);
         count ++;
       }
    
@@ -101,7 +116,7 @@ public class HappyTeams
       int swap1;
       int swap2;
 
-      for(int i=0; i<timesRan; i++)
+      for(int i=0; i < timesRan; i++)
       {
         Random rnd = new Random(i);
 
@@ -118,7 +133,7 @@ public class HappyTeams
 
           if(verbose == 1)
           {
-            for(int k = 0; k<count; k++)
+            for(int k = 0; k < count; k++)
             {
               //temp = temp + l[k] + " ";
             }
