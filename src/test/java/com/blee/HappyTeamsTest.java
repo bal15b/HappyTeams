@@ -15,17 +15,21 @@ import java.io.*;
 
 public class HappyTeamsTest
 {
-	HappyTeams h;
+    HappyTeams h;
     
     @Before
     public void initialize() {
-	h = new HappyTeams();
+    h = new HappyTeams();
     }
 
     @Test
     public void test() throws FileNotFoundException
     {
-    	HappyTeams.random(2,0,1000,5,0,"test.csv");
+        int swaps = 5;
+        int times = 5;
+        int counter = h.random(3,0,swaps,times,0,"test.csv");
+        assertEquals(swaps * times, counter);
+
     }
 }
 
