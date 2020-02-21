@@ -95,13 +95,12 @@ public class HappyTeams
 
   public boolean percentError(int p)
   {
-    double percent = p/100;
+    double percent = 100 - (p/100);
 
     int value = getHappiness();
 
     if (value > local_highest)
     {
-      local_highest = value;
       return true;
     }
     else if (value > local_highest * p)
@@ -173,6 +172,13 @@ public class HappyTeams
         count ++;
       }
 
+      int temp_n = count;
+
+      while (temp_n % team_size != 0)
+      {
+        l[count] = processLine(" ", count);
+        count++;
+      }
 
    
       scanner.close();
@@ -207,6 +213,7 @@ public class HappyTeams
           l[swap1] = l[swap2];
           l[swap2] = temp;
 
+          double per = 100 - (optimal/100);
           int value = getHappiness();
 
           if (value > local_highest)
@@ -219,7 +226,7 @@ public class HappyTeams
             }
             local_team = temps;
           }
-          else
+          else if (value < local_highest * per)
           {
             temp = l[swap1];
             l[swap1] = l[swap2];

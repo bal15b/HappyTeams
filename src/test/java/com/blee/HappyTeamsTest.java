@@ -32,12 +32,3 @@ public class HappyTeamsTest
 
     }
 }
-
-
-
-
-
-
-
-
-
