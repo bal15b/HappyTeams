@@ -17,11 +17,11 @@ import java.io.*;
 public class HappyTeams 
 {
 
-  public static class User
+  public class User
   {
-    public static int pref[];
-    public static int id;
-    public static String name;
+    public int pref[];
+    public int id;
+    public String name;
 
     User(String n, int[] p, int c, int h)
     {
@@ -29,18 +29,90 @@ public class HappyTeams
       id = h;
       pref = new int[10000];
 
-      for(int i = 1; i <= c; i++)
+      int counter = 0;
+      int[] values = {10,8,6,3,2,1};
+
+      for(int i = 0; i <= 5; i++)
       {
-        pref[i] = p[i];
+        pref[p[i+1]] = values[counter];
+        counter = counter + 1;
       }
+
 
     }
   }
 
-  public static User l[];
-  public static int count;
+  public User l[];
+  public int count;
+  public int team_size;
+  public int overall_highest;
+  public int local_highest;
+  public String local_team;
+  public String overall_team;
 
-  public static User processLine(String x, int h)
+
+  public int getUserHappiness(int n, int s)
+  {
+    int c = 0;
+
+    for (int i = 0; i < team_size; i++)
+    {
+      c = c + l[n-1].pref[s+i-1];
+    }
+    return c;
+  }
+  public int getTeamHappiness(int n)
+  {
+    int c = 0;
+
+    for(int i = 0; i < team_size; i++)
+    {
+      //System.out.println("user start: " + (i + n));
+
+      c = c + getUserHappiness(i + n, n);
+
+    }
+    return c;
+  }
+  public int getHappiness()
+  {
+    int c = 0;
+    int people = count;
+    
+    for (int i = 0; i < count; i++)
+    {
+      if (i%team_size - 1 == 0 && count >= i)
+      {
+        //System.out.println("team start: " + i);
+
+        c = c + getTeamHappiness(i);
+
+      }
+    }
+
+    return c;
+  }
+
+  public boolean percentError(int p)
+  {
+    double percent = p/100;
+
+    int value = getHappiness();
+
+    if (value > local_highest)
+    {
+      local_highest = value;
+      return true;
+    }
+    else if (value > local_highest * p)
+    {
+      return true;
+    }
+    System.out.println("test");
+    return false;
+  }
+
+  public User processLine(String x, int h)
     {
       int length = x.length();
 
@@ -50,7 +122,6 @@ public class HappyTeams
 
       String n = temp[0];
 
-      System.out.println(temp[0]);
 
       int count = 0;
 
@@ -64,19 +135,18 @@ public class HappyTeams
         }
         count ++;
       }
-      System.out.println(h);
 
       User y = new User(n,choices,count,h);
 
       return y;
     }
 
-  public static void main( String[] args )
+  public void main( String[] args )
   {
     System.out.println(args[0]);
   }
 
-    private static void prefs(String f)  throws FileNotFoundException
+    private void prefs(String f)  throws FileNotFoundException
     {
       String currentDirectory;
       currentDirectory = System.getProperty("user.dir");
@@ -102,25 +172,32 @@ public class HappyTeams
         l[count] = processLine(scanner.nextLine(), count);
         count ++;
       }
+
+
    
       scanner.close();
-
     }
 
-    public static int random(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName) throws FileNotFoundException
+    public int random(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName) throws FileNotFoundException
     {
-      
-      HappyTeams.prefs(fileName);
+      overall_highest = 0;
+      overall_team = "";
+      team_size = size;
+      this.prefs(fileName);
       int counter = 0;
       User temp;
       int swap1;
       int swap2;
 
+      
+
       for(int i=0; i < timesRan; i++)
       {
         Random rnd = new Random(i);
 
-        for(int j=0; j<numberOfSwaps; j++)
+        local_highest = 0;
+        local_team = "";
+        for(int j=0; j < numberOfSwaps; j++)
         {
           counter++;
           swap1 = rnd.nextInt(count);
@@ -130,19 +207,38 @@ public class HappyTeams
           l[swap1] = l[swap2];
           l[swap2] = temp;
 
+          int value = getHappiness();
 
-          if(verbose == 1)
+          if (value > local_highest)
           {
-            for(int k = 0; k < count; k++)
+            local_highest = value;
+            String temps = "";
+            for (int k = 0; k < count; k++)
             {
-              //temp = temp + l[k] + " ";
+              temps = temps + l[k].name + " ";
             }
-
-          //System.out.println(temp);
+            local_team = temps;
+          }
+          else
+          {
+            temp = l[swap1];
+            l[swap1] = l[swap2];
+            l[swap2] = temp;
           }
 
         }
+
+        if (local_highest > overall_highest)
+        {
+          overall_highest = local_highest;
+          overall_team = local_team;
+        }
+        System.out.println(local_highest + " " + local_team);
+
       }
+      System.out.println("Highest team happiness: " + overall_highest + "\nOrder: " + overall_team);
+
+
       return counter;
     }
 }
