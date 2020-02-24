@@ -61,7 +61,7 @@ public class HappyTeams
     }
     return c;
   }
-  public int getTeamHappiness(int n)
+  public int getTeamHappiness(int n)//gets 
   {
     int c = 0;
 
@@ -74,41 +74,30 @@ public class HappyTeams
     }
     return c;
   }
-  public int getHappiness()
+  public int getHappiness(int t)//gets overall happiness by adding 
   {
     int c = 0;
     int people = count;
+    int g;
     
     for (int i = 0; i < count; i++)
     {
       if (i%team_size - 1 == 0 && count >= i)
       {
         //System.out.println("team start: " + i);
+        g = getTeamHappiness(i);
+        c = c + g;
 
-        c = c + getTeamHappiness(i);
+        if (t == 1 && g == 0)
+        {
+          c = c - 40;
+        }
 
       }
     }
 
+
     return c;
-  }
-
-  public boolean percentError(int p)
-  {
-    double percent = 100 - (p/100);
-
-    int value = getHappiness();
-
-    if (value > local_highest)
-    {
-      return true;
-    }
-    else if (value > local_highest * p)
-    {
-      return true;
-    }
-    System.out.println("test");
-    return false;
   }
 
   public User processLine(String x, int h)
@@ -174,12 +163,11 @@ public class HappyTeams
 
       int temp_n = count;
 
-      while (temp_n % team_size != 0)
+      while (count % team_size != 0)
       {
-        l[count] = processLine(" ", count);
+        l[count] = processLine("", count);
         count++;
       }
-
    
       scanner.close();
     }
@@ -195,7 +183,8 @@ public class HappyTeams
       int swap1;
       int swap2;
 
-      
+            System.out.println(count);      
+
 
       for(int i=0; i < timesRan; i++)
       {
@@ -214,7 +203,7 @@ public class HappyTeams
           l[swap2] = temp;
 
           double per = 100 - (optimal/100);
-          int value = getHappiness();
+          int value = getHappiness(1);
 
           if (value > local_highest)
           {
@@ -222,7 +211,10 @@ public class HappyTeams
             String temps = "";
             for (int k = 0; k < count; k++)
             {
-              temps = temps + l[k].name + " ";
+              if(l[k].name != "")
+              {
+                temps = temps + l[k].name + " ";
+              }
             }
             local_team = temps;
           }

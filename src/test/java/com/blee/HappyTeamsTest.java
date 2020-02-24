@@ -25,7 +25,7 @@ public class HappyTeamsTest
     @Test
     public void test() throws FileNotFoundException
     {
-        int swaps = 5;
+        int swaps = 100;
         int times = 5;
         int counter = h.random(3,0,swaps,times,0,"test.csv");
         assertEquals(swaps * times, counter);
