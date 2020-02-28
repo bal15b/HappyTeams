@@ -35,9 +35,17 @@ public class HappyTeams
       for(int i = 0; i <= 5; i++)
       {
         pref[p[i+1]] = values[counter];
+        //System.out.println("here: "+ p[i+1] + " " + name);
+
+        if(p[i+1] == id + 1)
+        {
+          //System.out.println("there: "+ p[i+1] + " " + name + " " + id);
+          pref[p[i+1]] = 0;
+        }
+
         counter = counter + 1;
       }
-
+      //System.out.println("\n\n");
 
     }
   }
@@ -55,23 +63,27 @@ public class HappyTeams
   {
     int c = 0;
 
-    for (int i = 0; i < team_size; i++)
+    for (int i = 1; i <= team_size; i++)
     {
+      //System.out.println(l[n-1].pref[s+i-1]);
       c = c + l[n-1].pref[s+i-1];
     }
+    //System.out.println("person" + n);
     return c;
   }
-  public int getTeamHappiness(int n)//gets 
+  public int getTeamHappiness(int n, int t)//gets 
   {
     int c = 0;
+    int g;
 
     for(int i = 0; i < team_size; i++)
     {
       //System.out.println("user start: " + (i + n));
-
-      c = c + getUserHappiness(i + n, n);
+      g = getUserHappiness(i + n, n);
+      c = c + g;
 
     }
+        //System.out.println("team" + c);
     return c;
   }
   public int getHappiness(int t)//gets overall happiness by adding 
@@ -84,15 +96,8 @@ public class HappyTeams
     {
       if (i%team_size - 1 == 0 && count >= i)
       {
-        //System.out.println("team start: " + i);
-        g = getTeamHappiness(i);
+        g = getTeamHappiness(i,t);
         c = c + g;
-
-        if (t == 1 && g == 0)
-        {
-          c = c - 40;
-        }
-
       }
     }
 
@@ -174,23 +179,46 @@ public class HappyTeams
 
     public int random(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName) throws FileNotFoundException
     {
-      overall_highest = 0;
-      overall_team = "";
+      /*what y means
+        0 = doesn't care about teams or individals
+        1 = cares about 0's on teams
+      */
+      int y = 0;
+
+      //puts teams in array of users
       team_size = size;
       this.prefs(fileName);
+
+      //creates things for the loop
+      overall_highest = getHappiness(y);
+      overall_team = "";
       int counter = 0;
       User temp;
       int swap1;
       int swap2;
 
-            System.out.println(count);      
 
+      //System.out.println("here\n\n\n" + overall_highest);
 
+      //number of times ran
       for(int i=0; i < timesRan; i++)
       {
+        //sets up random number generator with seed
         Random rnd = new Random(i);
 
-        local_highest = 0;
+        //generates new order of users for each loop
+        for(int k=0; k < count; k++)
+        {
+          swap1 = rnd.nextInt(count);
+          swap2 = rnd.nextInt(count);
+
+          temp = l[swap1];
+          l[swap1] = l[swap2];
+          l[swap2] = temp;
+        }
+
+        //resets
+        local_highest = getHappiness(y);
         local_team = "";
         for(int j=0; j < numberOfSwaps; j++)
         {
@@ -203,8 +231,7 @@ public class HappyTeams
           l[swap2] = temp;
 
           double per = 100 - (optimal/100);
-          int value = getHappiness(1);
-
+          int value = getHappiness(y);
           if (value > local_highest)
           {
             local_highest = value;
@@ -213,7 +240,7 @@ public class HappyTeams
             {
               if(l[k].name != "")
               {
-                temps = temps + l[k].name + " ";
+                temps = temps + l[k].name + ", ";
               }
             }
             local_team = temps;
@@ -235,7 +262,7 @@ public class HappyTeams
         System.out.println(local_highest + " " + local_team);
 
       }
-      System.out.println("Highest team happiness: " + overall_highest + "\nOrder: " + overall_team);
+      System.out.println("\nHighest team happiness: " + overall_highest + "\nOptimal Team: " + overall_team + "\n");
 
 
       return counter;
