@@ -42,6 +42,8 @@ public class HappyTeamsTest
 
     }
 
+    //order to give items into main function (team_size, verbocity, number of swaps, number of iterations, percent error, filename, proposal)
+
     @Test
     public void test1()
     {
@@ -53,7 +55,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "10";
         String times = "10";
         String team_size = "2";
         String filename = "test.csv";
@@ -68,8 +70,12 @@ public class HappyTeamsTest
 
 
         //get initial happiness and check to make sure happiness is calculated correctly
-        int i = h1.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertEquals(i,32);
+        int i = h1.checkhappiness(2,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,32);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
@@ -77,7 +83,7 @@ public class HappyTeamsTest
         h1.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h1.checkhappiness(2,3,50,10,5,"test.csv",1);
+        int f = h1.checkhappiness(2,0,1,1,0,"test.csv",0);
         assertTrue(f >= i);
     }
 
@@ -92,7 +98,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "250";
         String times = "10";
         String team_size = "4";
         String filename = "test.csv";
@@ -106,8 +112,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h1.checkhappiness(4,3,50,10,5,"test.csv",1);
-        assertEquals(i,59);
+        int i = h1.checkhappiness(4,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,59);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
 
         //finds most optimal team arrangement with time alloted
@@ -116,8 +126,13 @@ public class HappyTeamsTest
         h2.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h2.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h1.checkhappiness(4,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
+        
     }
 
     @Test
@@ -145,8 +160,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h3.checkhappiness(6,0,50,10,5,"test.csv",1);
-        assertEquals(i,124);
+        int i = h3.checkhappiness(6,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,124);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
 
         //finds most optimal team arrangement with time alloted
@@ -155,8 +174,12 @@ public class HappyTeamsTest
         h3.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h3.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h3.checkhappiness(6,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -170,7 +193,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "750";
         String times = "10";
         String team_size = "3";
         String filename = "test.csv";
@@ -184,7 +207,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h4.checkhappiness(3,3,50,10,5,"test.csv",1);
+        int i = h4.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,42);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
         assertEquals(i,42);
 
 
@@ -194,8 +222,12 @@ public class HappyTeamsTest
         h4.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h4.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h4.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -209,7 +241,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "1000";
         String times = "10";
         String team_size = "2";
         String filename = "test.csv";
@@ -223,8 +255,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h5.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertEquals(i,39);
+        int i = h5.checkhappiness(2,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,39);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
 
         //finds most optimal team arrangement with time alloted
@@ -233,8 +269,12 @@ public class HappyTeamsTest
         h5.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h5.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h5.checkhappiness(2,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -248,7 +288,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "100";
         String times = "10";
         String team_size = "3";
         String filename = "test.csv";
@@ -262,7 +302,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h6.checkhappiness(3,3,50,10,5,"test.csv",1);
+        int i = h6.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,54);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
         assertEquals(i,54);
 
 
@@ -272,8 +317,12 @@ public class HappyTeamsTest
         h6.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h6.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h6.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -287,9 +336,9 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "5";
         String times = "10";
-        String team_size = "2";
+        String team_size = "3";
         String filename = "test.csv";
         String percent_err = "5";
 
@@ -301,8 +350,12 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h7.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertEquals(i,0);
+        int i = h7.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertEquals(i,56);
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
 
         //finds most optimal team arrangement with time alloted
@@ -311,8 +364,12 @@ public class HappyTeamsTest
         h7.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h7.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h7.checkhappiness(3,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -326,7 +383,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "15";
         String times = "10";
         String team_size = "4";
         String filename = "test.csv";
@@ -340,8 +397,13 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h8.checkhappiness(4,3,50,10,5,"test.csv",1);
-        assertEquals(i,102);
+        int i = h8.checkhappiness(4,0,1,1,0,"test.csv",0);
+        try{
+         assertEquals(i,102);
+
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
 
 
         //finds most optimal team arrangement with time alloted
@@ -350,8 +412,12 @@ public class HappyTeamsTest
         h8.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h8.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h8.checkhappiness(4,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
     @Test
@@ -365,7 +431,7 @@ public class HappyTeamsTest
         4 = shows every swap
         */
         String verbosity = "0";
-        String swaps = "50";
+        String swaps = "500";
         String times = "10";
         String team_size = "5";
         String filename = "test.csv";
@@ -379,8 +445,14 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h9.checkhappiness(5,3,50,10,5,"test.csv",1);
-        assertEquals(i,115);
+        int i = h9.checkhappiness(5,0,1,1,0,"test.csv",0);
+        try{
+         assertEquals(i,115);
+
+        } catch (Exception e) {
+            System.out.println("intial happiness calcluated incorrectly");
+        }
+
 
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
@@ -388,8 +460,12 @@ public class HappyTeamsTest
         h9.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h9.checkhappiness(2,3,50,10,5,"test.csv",1);
-        assertTrue(f >= i);
+        int f = h9.checkhappiness(5,0,1,1,0,"test.csv",0);
+        try{
+            assertTrue(f >= i);
+        } catch (Exception e) {
+            System.out.println("The overall happiness decreased");
+        }
     }
 
 }
