@@ -377,6 +377,8 @@ public class HappyTeams
 
     public void main( String[] args )
     {
+      
+
       this.random(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), args[5], Integer.parseInt(args[6]));
     }
 }
