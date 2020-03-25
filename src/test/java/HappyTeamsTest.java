@@ -1,5 +1,3 @@
-package com.blee;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
@@ -45,7 +43,7 @@ public class HappyTeamsTest
     //order to give items into main function (team_size, verbocity, number of swaps, number of iterations, percent error, filename, proposal)
 
     @Test
-    public void test1()
+    public void test1()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -80,7 +78,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h1.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h1.checkhappiness(2,0,1,1,0,"test.csv",0);
@@ -88,7 +86,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test2()
+    public void test2()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -112,7 +110,7 @@ public class HappyTeamsTest
         System.setIn(in);
 
         //get initial happiness
-        int i = h1.checkhappiness(4,0,1,1,0,"test.csv",0);
+        int i = h2.checkhappiness(4,0,1,1,0,"test.csv",0);
         try{
             assertEquals(i,59);
         } catch (Exception e) {
@@ -123,10 +121,10 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h2.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
-        int f = h1.checkhappiness(4,0,1,1,0,"test.csv",0);
+        int f = h2.checkhappiness(4,0,1,1,0,"test.csv",0);
         try{
             assertTrue(f >= i);
         } catch (Exception e) {
@@ -136,7 +134,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test3()
+    public void test3()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -171,7 +169,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h3.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h3.checkhappiness(6,0,1,1,0,"test.csv",0);
@@ -183,7 +181,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test4()
+    public void test4()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -219,7 +217,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h4.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h4.checkhappiness(3,0,1,1,0,"test.csv",0);
@@ -231,7 +229,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test5()
+    public void test5()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -266,7 +264,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h5.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h5.checkhappiness(2,0,1,1,0,"test.csv",0);
@@ -278,7 +276,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test6()
+    public void test6()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -314,7 +312,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h6.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h6.checkhappiness(3,0,1,1,0,"test.csv",0);
@@ -326,7 +324,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test7()
+    public void test7()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -361,7 +359,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h7.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h7.checkhappiness(3,0,1,1,0,"test.csv",0);
@@ -373,7 +371,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test8()
+    public void test8()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -409,7 +407,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h8.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h8.checkhappiness(4,0,1,1,0,"test.csv",0);
@@ -421,7 +419,7 @@ public class HappyTeamsTest
     }
 
     @Test
-    public void test9()
+    public void test9()  throws FileNotFoundException
     {
         /* verbosity
         0 = basic output
@@ -457,7 +455,7 @@ public class HappyTeamsTest
         //finds most optimal team arrangement with time alloted
         ByteArrayInputStream in2 = new ByteArrayInputStream(prefs.getBytes());
         System.setIn(in2);
-        h9.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
+        HappyTeams.main( new String[] {team_size, verbosity, swaps, times, percent_err, filename, proposal} );
 
         //check happiness at the end to see if it has imporved or at least stayed the same
         int f = h9.checkhappiness(5,0,1,1,0,"test.csv",0);

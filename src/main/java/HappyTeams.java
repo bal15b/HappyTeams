@@ -1,5 +1,3 @@
-package com.blee;
- 
 import java.util.*;
 import java.io.*;
 
@@ -136,6 +134,7 @@ public class HappyTeams
 
       int count = 0;
 
+
       for (String t : temp)
       {
 
@@ -157,21 +156,38 @@ public class HappyTeams
       return y;
     }
 
-    private void prefs(String f, int[] picks)  
+    private void prefs(String f, int[] picks)  throws FileNotFoundException
     {
       count = 0;
-      Scanner scanner = new Scanner(System.in); 
 
+      Scanner scanner;
       l = new User[10000];
 
+      if(f == "test.csv")
+      {
+        scanner = new Scanner(System.in); 
+
+      }
+      else
+      {
+        String currentDirectory;
+        currentDirectory = System.getProperty("user.dir");
+
+        count = 0;
+
+        FileInputStream fis = new FileInputStream(f);
+        scanner = new Scanner(fis);
+
+      }
 
 
       if (scanner.hasNextLine())
       {
+
         l[count] = processLine(scanner.nextLine(), count, picks);
         count ++;
       }
-   
+
       while(scanner.hasNextLine())
       {
         l[count] = processLine(scanner.nextLine(), count, picks);
@@ -188,6 +204,7 @@ public class HappyTeams
    
       scanner.close();
     }
+    
 
     public void getnewlist(Random rnd)
     {
@@ -294,13 +311,13 @@ public class HappyTeams
     }
 
 
-    public void random(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName, int proposal)
+    public void random(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName, int proposal)   throws FileNotFoundException
     {
-
       //puts teams in array of users
       team_size = size;
       int[] picks = new int[100000];
       this.prefs(fileName, picks);
+
       verbosity = verbose;
 
       //creates things for the loop
@@ -366,7 +383,7 @@ public class HappyTeams
 
     }
 
-    public int checkhappiness(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName, int proposal) 
+    public int checkhappiness(int size, int verbose, int numberOfSwaps, int timesRan, int optimal, String fileName, int proposal)   throws FileNotFoundException
     {
       if (count == 0)
       {
@@ -375,10 +392,16 @@ public class HappyTeams
       return this.getHappiness(proposal);
     }
 
-    public void main( String[] args )
+    public static void main( String[] args )  throws FileNotFoundException
     {
-      
+      if (args.length > 7)//if put in from the command line
+      {
+        new HappyTeams().random(Integer.parseInt(args[3]),Integer.parseInt(args[1]), Integer.parseInt(args[5]), Integer.parseInt(args[7]), Integer.parseInt(args[9]), args[13], Integer.parseInt(args[11]));
+      }
+      else
+      {
+        new HappyTeams().random(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), args[5], Integer.parseInt(args[6]));
 
-      this.random(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), args[5], Integer.parseInt(args[6]));
+      }
     }
 }
